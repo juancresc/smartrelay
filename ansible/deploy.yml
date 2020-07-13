@@ -21,6 +21,7 @@
     - name: copy nginx config
       template: src=files/nginx.j2 dest=/etc/nginx/sites-enabled/{{ project_name }}.conf
       notify:
+      - reload systemd
       - restart nginx
 
     - name: django migrate
@@ -38,6 +39,7 @@
     - name: copy gunicorn config
       template: src=files/gunicorn.j2 dest=/etc/systemd/system/gunicorn.service
       notify:
+      - reload systemd
       - restart gunicorn
 
     - name: make sure nginx server is running
@@ -52,4 +54,8 @@
 
     - name: restart gunicorn
       service: name=gunicorn state=restarted
+    
+    - name: reload systemd
+      command: systemctl daemon-reload
+
 # vim:ft=ansible:
