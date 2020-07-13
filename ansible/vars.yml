@@ -5,6 +5,16 @@ project_name: smartrelay
 # the base path to install to. You should not need to change this.
 install_root: /srv
 
+# the git repository URL for the project
+project_repo: git@github.com:juancrescente/smartrelay.git
+    
+  
+# the dns name or names (space separated) for your server
+server_name: 164.90.178.147
+
+
+# from here on you don't need to change anything
+
 project_path: "{{ install_root }}/django/{{ project_name }}/"
 
 # the python module path to your project's wsgi file. E.g. for a directory
@@ -20,16 +30,13 @@ project_path: "{{ install_root }}/django/{{ project_name }}/"
 # ├── manage.py
 # └── requirements.txt
 # the correct wsgi_module value would be `hello.wsgi`
-wsgi_module: smartrelay.wsgi
+wsgi_module: "{{ project_name }}.wsgi"
 
 virtual_env: "{{ install_root }}/{{ project_name }}/venv"
 
 # any directories that need to be added to the PYTHONPATH.
 pythonpath: "{{ virtual_env }}/bin/python"
 
-# the git repository URL for the project
-project_repo: git@github.com:juancrescente/smartrelay.git
-    
 # a private key that has access to the repository URL
 ssh_private_key: ~/.ssh/id_rsa
 
@@ -39,9 +46,6 @@ ssh_private_key: ~/.ssh/id_rsa
 # here assumes that STATIC_ROOT is set in your settings.py like so:
 # STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
 static_root: "{{ project_path }}/static"
-
-# the dns name or names (space separated) for your server
-server_name: 164.90.178.147
 
 # apt packages, you should not need to change this unless you have packages
 # listed in your requirements.txt that depend on system packages.
