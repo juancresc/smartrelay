@@ -19,7 +19,7 @@ yas.zip
 *.dmg
 *.sql
 .sourceenv
-weights.best.basic_cnn.hdf5
+*.hdf5
 extras/notebooks/data/*
 geoip/
 data/
