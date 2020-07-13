@@ -25,3 +25,5 @@ geoip/
 data/
 bower_components/
 __pycache__/
+*.pem
+hosts
