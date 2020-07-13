@@ -16,9 +16,6 @@
     - name: Create directory for app
       file: path={{ install_root }}/{{ project_name }} state=directory
 
-    - name: Create directory for gunicorn
-      file: path=/etc/init state=directory
-
     - name: Create the initial virtualenv
       command:
         cmd: virtualenv {{ install_root }}/{{ project_name }}/venv -p python3

@@ -1,13 +1,11 @@
-description "Gunicorn application server handling {{ project_name }}"
+[Unit]
+Description=gunicorn service
+After=network.target
 
-start on runlevel [2345]
-stop on runlevel [!2345]
-
-respawn
-setuid www-data
-setgid www-data
-chdir {{ project_path }}
-
-env PYTHONPATH={{ virtual_env }}/bin/python
-
-exec {{ virtual_env }}/bin/gunicorn --workers 2 --bind 127.0.0.1:8000 {{ wsgi_module }}:application
+[Service]
+User=root
+Group=www-data
+WorkingDirectory={{ project_path }}
+ExecStart={{ virtual_env }}/bin/gunicorn yas.wsgi --access-logfile - --workers 2 --bind localhost:8000
+[Install]
+WantedBy=multi-user.target
