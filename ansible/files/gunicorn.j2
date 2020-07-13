@@ -6,6 +6,6 @@ After=network.target
 User=root
 Group=www-data
 WorkingDirectory={{ project_path }}
-ExecStart={{ virtual_env }}/bin/gunicorn yas.wsgi --access-logfile - --workers 2 --bind localhost:8000
+ExecStart={{ virtual_env }}/bin/gunicorn smartrelay.wsgi --access-logfile - --workers 2 --bind localhost:8000
 [Install]
 WantedBy=multi-user.target
