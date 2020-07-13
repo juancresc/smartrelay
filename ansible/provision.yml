@@ -18,8 +18,8 @@
 
     - name: Create the initial virtualenv
       command:
-        cmd: virtualenv {{ install_root }}/{{ project_name }}/venv -p python3
-        creates: "virtualenv {{ install_root }}/{{ project_name }}/venv"
+        cmd: virtualenv {{ virtual_env }} -p python3
+        creates: "{{ virtual_env }}"
 
     - name: remove default nginx site
       file: path=/etc/nginx/sites-enabled/default state=absent
