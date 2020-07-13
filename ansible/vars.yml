@@ -5,6 +5,8 @@ project_name: smartrelay
 # the base path to install to. You should not need to change this.
 install_root: /srv
 
+project_path: "{{ install_root }}/django/{{ project_name }}/"
+
 # the python module path to your project's wsgi file. E.g. for a directory
 # layout like this (assuming `django_hello` is the project_name and top level
 # directory name):
@@ -20,8 +22,10 @@ install_root: /srv
 # the correct wsgi_module value would be `hello.wsgi`
 wsgi_module: smartrelay.wsgi
 
+virtual_env: "{{ install_root }}/{{ project_name }}/venv"
+
 # any directories that need to be added to the PYTHONPATH.
-#pythonpath: "{{ install_root }}/{{ project_name }}/hello/apps"
+pythonpath: "{{ virtual_env }}/bin/python"
 
 # the git repository URL for the project
 project_repo: git@github.com:juancrescente/smartrelay.git
@@ -37,7 +41,7 @@ ssh_private_key: ~/.ssh/id_rsa
 static_root: "{{ install_root }}/{{ project_name }}/static"
 
 # the dns name or names (space separated) for your server
-server_name: django-hello.com www.django-hello.com
+server_name: 164.90.178.147
 
 # apt packages, you should not need to change this unless you have packages
 # listed in your requirements.txt that depend on system packages.
@@ -47,5 +51,6 @@ system_packages:
   - gunicorn
   - python-pip
   - python-dev
+  - virtualenv
 
 # vim:ft=ansible:

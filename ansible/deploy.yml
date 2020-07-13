@@ -7,12 +7,14 @@
 
   tasks:
     - name: Clone/pull project repo
-      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes
+      git: repo={{ project_repo }} dest={{ project_path }} accept_hostkey=yes
       notify:
       - restart gunicorn
 
     - name: install python packages
-      pip: requirements={{ install_root }}/{{ project_name }}/requirements.txt
+      pip: 
+        requirements: "{{ project_path }}/requirements.txt"
+        virtualenv: "{{ virtual_env }}"
       notify:
       - restart gunicorn
 
@@ -22,10 +24,16 @@
       - restart nginx
 
     - name: django migrate
-      django_manage: command=migrate app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }}
+      django_manage: 
+        command: migrate
+        app_path: "{{ project_path }}"
+        virtualenv: "{{ virtual_env }}"
 
-    - name: django collectstatic
-      django_manage: command=collectstatic app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }}
+#    - name: django collectstatic
+#      django_manage: 
+#        command: collectstatic 
+#        app_path: "{{ project_path }}"
+#        virtualenv: "{{ virtual_env }}"
 
     - name: copy gunicorn config
       template: src=files/gunicorn.j2 dest=/etc/init/gunicorn.conf
