@@ -38,7 +38,7 @@ ssh_private_key: ~/.ssh/id_rsa
 # copies static files to, and it must be an absolute path. The default value 
 # here assumes that STATIC_ROOT is set in your settings.py like so:
 # STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
-static_root: "{{ install_root }}/{{ project_name }}/static"
+static_root: "{{ project_path }}/static"
 
 # the dns name or names (space separated) for your server
 server_name: 164.90.178.147
