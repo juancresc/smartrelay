@@ -5,7 +5,7 @@ from django.utils.timezone import now, timedelta
 class Alarm(models.Model):
     alarm_time = models.TimeField()
     action = models.BooleanField()
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=now)
 
     def __str__(self):
         action = "ON" if self.action else "OFF"
@@ -14,8 +14,8 @@ class Alarm(models.Model):
 
 class OnOff(models.Model):
     action = models.BooleanField()
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=now)
     
     def __str__(self):
         action = "ON" if self.action else "OFF"
-        return "{} at {} ".format(action, self.alarm_time)
+        return "{} at {} ".format(action, self.updated_at)
