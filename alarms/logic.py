@@ -24,14 +24,13 @@ class CalculateCurrentStatus():
             closest_alarm = Alarm.objects.all()
             closest_alarm = closest_alarm.order_by('-alarm_time')
             closest_alarm = closest_alarm.first()
-            updated_at = closest_alarm.updated_at
             if closest_alarm:
+                updated_at = closest_alarm.updated_at
                 #only if it was created yesterday before the alarm time
                 if updated_at.date() <= yesterday and updated_at.time() < closest_alarm.alarm_time:
                     return_alarm = closest_alarm
         if return_alarm:
             #if the alarm is a time in the past
-            print(return_alarm)
             if return_alarm.alarm_time <= now:
                 #if there's an OnOff event posterior to the alarm
                 on_off = OnOff.objects.filter(updated_at__date=today)

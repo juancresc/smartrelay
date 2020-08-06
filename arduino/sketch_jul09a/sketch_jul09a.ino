@@ -5,7 +5,7 @@
 #define USE_SERIAL Serial
 ESP8266WiFiMulti WiFiMulti;
 
-
+const int relayPin =  2;
 void setup() {
    USE_SERIAL.begin(9600);
   // USE_SERIAL.setDebugOutput(true);
@@ -21,6 +21,8 @@ void setup() {
    // provide our SSID and Password for WIFI network connection
    WiFiMulti.addAP("AE326E", "100865146");
   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
+  pinMode(relayPin, OUTPUT);
+  
 
    
 }
@@ -43,9 +45,11 @@ void loop() {
                if(payload.equals("1")){
                   USE_SERIAL.println("yeah man");
                   digitalWrite(LED_BUILTIN, LOW);// LOW means ON in esp8266
+                  digitalWrite(relayPin, LOW);
                   delay(2000);
                }else if(payload.equals("0")){
                   digitalWrite(LED_BUILTIN, HIGH);
+                  digitalWrite(relayPin, HIGH);
                   delay(2000);
                }else{
                   USE_SERIAL.println("Something's wrong dude");
